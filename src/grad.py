@@ -1,5 +1,6 @@
 import math
 value_error = TypeError("Value type can only hold float scalars")
+version = "v0.0"
 
 def parse_value(x):
         if isinstance(x, (int, float)):
@@ -111,34 +112,3 @@ class Value:
         
     def __repr__(self):
         return f"Value({self.data}, grad={self.grad})"
-
-
-# minimize (x-6)^4
-x = Value(20)
-lr = 0.001
-epochs = 10000
-for i in range(epochs + 1):
-    f = (x - 6) ** 4
-    f = f.relu()
-    f.backward()
-    x.data -= lr * x.grad
-    if i % (epochs / 10) == 0:        
-        print(f"[{i}]\tx: {x.data}: f(x): {f.data}")
-    x.zero_grad()
-
-
-import numpy as np
-import matplotlib.pyplot as plt
-def get_val(x):
-    x = Value(x)
-    f = (x - 6) ** 3
-    f = f.relu()
-    f = f.exp()
-    return f
-
-xs = np.array(np.linspace(-10, 10, 50), dtype=float)
-ys = np.array([get_val(x) for x in xs])
-plt.plot(xs, ys)
-
-
-
