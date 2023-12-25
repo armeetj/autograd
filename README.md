@@ -4,11 +4,12 @@ Autograd engine and neural network library with PyTorch-like API. Recreation of 
 
 - [armeetjatyani/autograd](#armeetjatyaniautograd)
   - [nn library](#nn-library)
+    - [Training (demo)](#training-demo)
     - [Neuron](#neuron)
     - [Layer](#layer)
     - [Net](#net)
   - [autograd engine](#autograd-engine)
-    - [minimize (demo)](#minimize-demo)
+    - [Minimize (demo)](#minimize-demo)
 
 
 ## nn library
@@ -16,6 +17,9 @@ Autograd engine and neural network library with PyTorch-like API. Recreation of 
 `autograd/nn.py`
 
 The nn library is built on top of the autograd engine (see below). Read about the `Neuron`, `Layer`, and `Net` objects below. Here is a demo showing how a simple network can be trained. Note that this library is meant as an educational exercise. Everything is running on the CPU. Nothing is parallelized. So, we use a tiny example to show the capabilities of this tiny library.
+
+### Training (demo)
+TODO: write demo here
 
 ### Neuron
 
@@ -103,7 +107,7 @@ In this example, we create a net that has 3 fully connected layers. The net ulti
 
 `autograd/engine.py`
 
-We can construct expressions using the `Value` class. Internally, the library maintains a graph representation of variables and their dependencies.
+We can construct expressions using the `Value` class. Internally, the library maintains a graph representation of variables and their dependencies. We can calculate all gradients of parameters of an expression by calling `.backward()` on the result of an expression.
 
 ```python
 from autograd.engine import Value
@@ -123,7 +127,7 @@ print(z.relu()) # Value(0.0, grad=0.0)
 print(z.sigmoid()) # Value(0.9525741268224331, grad=0.0)
 ```
 
-### minimize (demo)
+### Minimize (demo)
 In the following example, we'll minimize `(x-y)^3 + e^y` over many iterations. In each step, we perform a forward pass, backward pass (to calculate gradients), and then update the parameters x and y according to their calculated gradients.
 
 ```python
