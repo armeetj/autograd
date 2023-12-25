@@ -6,7 +6,7 @@ Autograd engine and neural network library with PyTorch-like API. Recreation of 
 
 `autograd/nn.py`
 
-The nn library is built on top of the autograd engine (see below).
+The nn library is built on top of the autograd engine (see below). Read about the `Neuron`, `Layer`, and `Net` objects below. Here is a demo showing how a simple network can be trained. Note that this library is meant as an educational exercise. Everything is running on the CPU. Nothing is parallelized. So, we use a tiny example to show the capabilities of this tiny library.
 
 ### Neuron
 
@@ -64,8 +64,31 @@ print(l([1, 2, 3]))
 """
 ```
 
+In this example we build a layer with 10 neurons. Each neuron has 4 trainable parameters (3 weights + 1 bias). This yields a total of 40 trainable parameters.
+
 ### Net
-Net is a multilayer perceptron built by chaining together multiple Layer objects.
+
+Net is a multilayer perceptron built by chaining together multiple Layer objects. Layers are fully connected.
+
+Usage:
+
+```python
+net = Net(3, [100, 200, 2])
+print(net)
+# Net([3, 100, 200, 2]): ['Layer(N_in=3, N_out=100)', 'Layer(N_in=100, N_out=200)', 'Layer(N_in=200, N_out=2)']]
+
+print(net.nparams())
+# 21002
+
+print(net([1, 2, 3]))
+# [Value(0.9786990460374885, grad=0.0), Value(0.9993422981186754, grad=0.0)]
+```
+
+In this example, we create a net that has 3 fully connected layers. The net ultimately takes in 3 inputs and yields 2 outputs (ignoring the hiden layers).
+
+- Layer 1: 3 inputs --> 100 outputs
+- Layer 2: 100 inputs --> 200 outputs
+- Layer 3: 200 inputs --> 2 outputs
 
 ## autograd engine
 

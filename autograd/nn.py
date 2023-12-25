@@ -71,6 +71,6 @@ class Net(Module):
 
     def __repr__(self):
         # s = str(l) for l in self.layers
-        return f"MLP({self.N}): {[str(l) for l in self.layers]}]"
+        return f"Net({self.N}): {[str(l) for l in self.layers]}]"
         
         
