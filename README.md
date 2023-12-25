@@ -56,7 +56,8 @@ for i in range(epochs + 1):
     y.data -= lr * y.grad
 ```
 The following video shows the value of the expression over thousands of iterations. We expect the value to grow smaller and smaller.
-https://github.com/armeetjatyani/autograd/raw/main/demo/minimize/minimize.mp4
+
+https://github.com/armeetjatyani/autograd/assets/38377327/83555924-02bc-4b61-82d8-c642c33a8f78
 
 ## nn library
 
