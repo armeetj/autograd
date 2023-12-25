@@ -1,4 +1,4 @@
-from grad import Value
+from autograd.engine import Value
 import random
 
 class Module:
@@ -18,8 +18,8 @@ class Neuron(Module):
         return self.b + sum([self.w[i] * x[i] for i in range(self.N)])
         
     def activate(self, x):
-        return self.signal(x)
-        # return self.signal(x).relu()
+        # return self.signal(x)
+        return self.signal(x).sigmoid()
         
     def __init__(self, N):
         self.N = N

@@ -66,7 +66,8 @@ class Value:
         return res
 
     def sigmoid(self):
-        pass
+        res = 1 / (1 + self.exp())
+        return res
         
     def tanh(self):
         pass
