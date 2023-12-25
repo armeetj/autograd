@@ -72,6 +72,8 @@ In this demo, we train a neural network to fit the sine function.
 <details>
 <summary>Demo Code</summary>
 
+
+
 ```python
 from autograd.engine import Value
 import autograd.nn as nn
@@ -117,6 +119,13 @@ plt.show()
 ```
 
 </details>
+
+```
+Net([1, 20, 20, 1]): ['Layer(N_in=1, N_out=20)', 'Layer(N_in=20, N_out=20)', 'Layer(N_in=20, N_out=1)']]
+trainable_params=481
+[loss=2.9641][epoch=999]: 100%|███████████████████████████████████████████████████████████████████████████████████| 1000/1000 [09:38<00:00,  1.73it/s]
+```
+![sin_train](https://github.com/armeetjatyani/autograd/assets/38377327/7c5f87b1-6b66-4dd7-b472-fa99127b38bb)
 
 
 
