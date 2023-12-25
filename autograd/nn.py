@@ -55,7 +55,7 @@ class Layer(Module):
     def __repr__(self):
         return f"Layer(N_in={self.N_in}, N_out={self.N_out})"
 
-class MLP(Module):
+class Net(Module):
 
     def __init__(self, N_in, N_outs):
         self.N = [N_in] + N_outs
