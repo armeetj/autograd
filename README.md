@@ -8,6 +8,7 @@ Autograd engine and neural network library with PyTorch-like API. Recreation of 
     - [Layer](#layer)
     - [Net](#net)
   - [autograd engine](#autograd-engine)
+    - [minimize (demo)](#minimize-demo)
 
 
 ## nn library
@@ -92,7 +93,7 @@ print(net([1, 2, 3]))
 # [Value(0.9786990460374885, grad=0.0), Value(0.9993422981186754, grad=0.0)]
 ```
 
-In this example, we create a net that has 3 fully connected layers. The net ultimately takes in 3 inputs and yields 2 outputs (ignoring the hiden layers).
+In this example, we create a net that has 3 fully connected layers. The net ultimately takes in 3 inputs and yields 2 outputs (ignoring the hidden layers).
 
 - Layer 1: 3 inputs --> 100 outputs
 - Layer 2: 100 inputs --> 200 outputs
@@ -122,6 +123,7 @@ print(z.relu()) # Value(0.0, grad=0.0)
 print(z.sigmoid()) # Value(0.9525741268224331, grad=0.0)
 ```
 
+### minimize (demo)
 In the following example, we'll minimize `(x-y)^3 + e^y` over many iterations. In each step, we perform a forward pass, backward pass (to calculate gradients), and then update the parameters x and y according to their calculated gradients.
 
 ```python
