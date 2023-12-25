@@ -1,27 +1,26 @@
 # armeetjatyani/autograd
 
-Autograd engine and neural network library with PyTorch-like API. Recreation of [micrograd](https://github.com/karpathy/micrograd).
+Scalar value autograd engine and neural network library with PyTorch-like API, written from scratch with no dependencies (excluding random). Recreation of [micrograd](https://github.com/karpathy/micrograd).
 
 - [armeetjatyani/autograd](#armeetjatyaniautograd)
-  - [nn library](#nn-library)
+  - [`autograd/nn.py` - simple nn library](#autogradnnpy---simple-nn-library)
     - [Training (demo)](#training-demo)
-    - [Neuron](#neuron)
-    - [Layer](#layer)
-    - [Net](#net)
-  - [autograd engine](#autograd-engine)
+    - [`autograd.nn.Neuron`](#autogradnnneuron)
+    - [`autograd.nn.Layer`](#autogradnnlayer)
+    - [`autograd.nn.Net`](#autogradnnnet)
+  - [`autograd/engine.py` - scalar value autograd engine](#autogradenginepy---scalar-value-autograd-engine)
+    - [`autograd.engine.Value`](#autogradenginevalue)
     - [Minimize (demo)](#minimize-demo)
 
-
-## nn library
-
-`autograd/nn.py`
+## `autograd/nn.py` - simple nn library
 
 The nn library is built on top of the autograd engine (see below). Read about the `Neuron`, `Layer`, and `Net` objects below. Here is a demo showing how a simple network can be trained. Note that this library is meant as an educational exercise. Everything is running on the CPU. Nothing is parallelized. So, we use a tiny example to show the capabilities of this tiny library.
 
 ### Training (demo)
+
 TODO: write demo here
 
-### Neuron
+### `autograd.nn.Neuron`
 
 Every neuron stores parameters (weights and bias) as `Value` objects that keep track of gradients. To evaluate a neuron, inputs are multiplied by weights and added to the bias. Finally, the resulting signal is activated by a sigmoid function. This entire expression is internally represented by a DAG, to enable backwards gradient calculation (by `autograd.engine`).
 
@@ -44,7 +43,7 @@ print(n([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 
 We initialize this neuron to take in 10 inputs. This neuron has 11 total parameters (10 weights + 1 bias).
 
-### Layer
+### `autograd.nn.Layer`
 
 A Layer is an abstraction built on top of the Neuron class. Layers contain identically shaped neurons. That is, each neuron in the layer takes in the same number of inputs. The number of neurons in the layer is the number of the outputs of this layer.
 
@@ -79,7 +78,7 @@ print(l([1, 2, 3]))
 
 In this example we build a layer with 10 neurons. Each neuron has 4 trainable parameters (3 weights + 1 bias). This yields a total of 40 trainable parameters.
 
-### Net
+### `autograd.nn.Net`
 
 Net is a multilayer perceptron built by chaining together multiple Layer objects. Layers are fully connected.
 
@@ -103,11 +102,11 @@ In this example, we create a net that has 3 fully connected layers. The net ulti
 - Layer 2: 100 inputs --> 200 outputs
 - Layer 3: 200 inputs --> 2 outputs
 
-## autograd engine
+## `autograd/engine.py` - scalar value autograd engine
 
-`autograd/engine.py`
+### `autograd.engine.Value`
 
-We can construct expressions using the `Value` class. Internally, the library maintains a graph representation of variables and their dependencies. We can calculate all gradients of parameters of an expression by calling `.backward()` on the result of an expression.
+We can construct expressions using the `Value` class. Internally, the library maintains a graph representation of variables and their dependencies. We can calculate all gradients of parameters of an expression by calling `.backward()` on the result of an expression. This can be thought of as a simplified version of PyTorch's `Tensor`, holding scalar floats rather than tensors.
 
 ```python
 from autograd.engine import Value
@@ -128,6 +127,7 @@ print(z.sigmoid()) # Value(0.9525741268224331, grad=0.0)
 ```
 
 ### Minimize (demo)
+
 In the following example, we'll minimize `(x-y)^3 + e^y` over many iterations. In each step, we perform a forward pass, backward pass (to calculate gradients), and then update the parameters x and y according to their calculated gradients.
 
 ```python
