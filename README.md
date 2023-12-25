@@ -61,6 +61,10 @@ print("y_pred:", [model(x).data for x in X])
 </details>
 
 
+https://github.com/armeetjatyani/autograd/assets/38377327/f5941fef-cda9-436e-bdf0-2676bb34d705
+
+
+
 
 ### `autograd.nn.Neuron`
 
