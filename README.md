@@ -1,6 +1,6 @@
 # armeetjatyani/autograd
 
-Scalar value autograd engine and neural network library with PyTorch-like API, written from scratch with no dependencies (excluding random). Recreation of [micrograd](https://github.com/karpathy/micrograd).
+Scalar value autograd engine and neural network library with PyTorch-like API, written from scratch with no dependencies (excluding random) in ~500 lines of code. Recreation of [micrograd](https://github.com/karpathy/micrograd).
 
 - [armeetjatyani/autograd](#armeetjatyaniautograd)
   - [`autograd/nn.py` - simple nn library](#autogradnnpy---simple-nn-library)
