@@ -7,9 +7,13 @@ class Module:
         return len(self.params())
     def params(self):
         return []
-        
+    
+    def step(self, lr):
+        for p in self.params():
+            p.data -= lr * p.grad
+    
     def zero_grad(self):
-        for p in self.parameters():
+        for p in self.params():
             p.zero_grad()
 
 class Neuron(Module):
@@ -47,7 +51,7 @@ class Layer(Module):
     def __call__(self, x):
         assert len(x) == self.N_in
         out = [n(x) for n in self.neurons]
-        return out
+        return out[0] if len(out) == 1 else out
 
     def params(self):
         return [p for n in self.neurons for p in n.params()]
