@@ -12,7 +12,7 @@ import autograd.nn as nn
 
 """ 
 generate a dataset for the target function
-f(x) = sin(x_1 * x_2 * x_3) + noise
+f(x) = sin(x) + noise
 """
 noise = lambda: random.uniform(-0.1, 0.1)
 f = lambda x: math.sin(x[0])
@@ -25,9 +25,9 @@ print(model)
 print(f"trainable_params={model.nparams()}")
 
 lr = 0.001
-epochs = 1000
+epochs = 500
 
-pbar = tqdm.trange(epochs, desc="[loss: xxxxxx]")
+pbar = tqdm.trange(1, epochs + 1, desc="[loss: xxxxxx]")
 for epoch in pbar:
     # forward
     loss = 0

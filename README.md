@@ -18,10 +18,11 @@ Scalar value autograd engine and neural network library with PyTorch-like API, w
 The nn library is built on top of the autograd engine (see below). Read about the `Neuron`, `Layer`, and `Net` objects below. Here is a demo showing how a simple network can be trained. Note that this library is meant as an educational exercise. Everything is running on the CPU. Nothing is parallelized. So, we use a tiny example to show the capabilities of this tiny library.
 
 ### tiny_train (demo)
+
 Train a simple `nn.Net` to fit a tiny 4 example dataset.
 
 <details>
-<summary> Demo Code </summary>
+<summary>Demo Code</summary>
 
 ```python
 from autograd.engine import Value
@@ -36,7 +37,7 @@ model = nn.Net(3, [10, 1])
 print(model)
 print(f"trainable_params={model.nparams()}")
 
-lr = 0.1
+lr = 0.01
 epochs = 5000
 
 pbar = tqdm.trange(1, epochs + 1, desc="[loss: xxxxxx]")
@@ -62,12 +63,61 @@ print("y_pred:", [model(x).data for x in X])
 
 </details>
 
-
 https://github.com/armeetjatyani/autograd/assets/38377327/f5941fef-cda9-436e-bdf0-2676bb34d705
 
 ### sin_train (demo)
 
 In this demo, we train a neural network to fit the sine function.
+
+<details>
+<summary>Demo Code</summary>
+
+```python
+from autograd.engine import Value
+import autograd.nn as nn
+
+"""
+generate a dataset for the target function
+f(x) = sin(x) + noise
+"""
+noise = lambda: random.uniform(-0.1, 0.1)
+f = lambda x: math.sin(x[0])
+X = [[random.uniform(-2 * math.pi, 2 * math.pi)] for i in range(50)]
+y = [f(x) + noise() for x in X]
+
+# construct model
+model = nn.Net(1, [20, 20, 1])
+print(model)
+print(f"trainable_params={model.nparams()}")
+
+lr = 0.001
+epochs = 500
+
+pbar = tqdm.trange(1, epochs + 1, desc="[loss: xxxxxx]")
+for epoch in pbar:
+    # forward
+    loss = 0
+    for x, yi in zip(X, y):
+        loss += (model(x) - yi) ** 2
+    pbar.set_description(f"[loss={str(loss.data)[:6]}][epoch={epoch}]")
+
+    # backward
+    model.zero_grad()
+    loss.backward()
+
+    # update params
+    model.step(lr)
+
+plt.figure()
+X_true = list(np.linspace(-2 * math.pi, 2 * math.pi, 100))
+y_true = [math.sin(x) for x in X_true]
+plt.plot(X_true, y_true, label="actual", c="gray")
+plt.scatter(X_true, [model([x]) for x in X_true], label="predicted")
+plt.show()
+```
+
+</details>
+
 
 
 ### `nn.Neuron`
