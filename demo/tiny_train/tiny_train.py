@@ -17,7 +17,7 @@ model = nn.Net(3, [10, 1])
 print(model)
 print(f"trainable_params={model.nparams()}")
 
-lr = 0.1
+lr = 0.01
 epochs = 5000
 
 pbar = tqdm.trange(1, epochs + 1, desc="[loss: xxxxxx]")

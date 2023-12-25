@@ -79,13 +79,27 @@ class Value:
         res._backward = _backward
         return res
 
+    # TODO: fix sigmoid
     def sigmoid(self):
-        res = 1 / (1 + self.exp())
+        res = Value(1 / (1 + math.e ** (-self.data)), (self,))
+
+        def _backward():
+            self.grad += res.data * (1 - res.data)
+
+        res._backward = _backward
         return res
 
     def tanh(self):
-        pass
+        t = math.tanh(self.data)
+        out = Value(t, (self,))
 
+        def _backward():
+            self.grad += (1 - t**2) * out.grad
+
+        out._backward = _backward
+        return out
+
+    # TODO: fix relu
     def relu(self):
         res = Value(max(0, self.data), (self,))
 

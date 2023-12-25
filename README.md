@@ -4,19 +4,21 @@ Scalar value autograd engine and neural network library with PyTorch-like API, w
 
 - [armeetjatyani/autograd](#armeetjatyaniautograd)
   - [`autograd/nn.py` - simple nn library](#autogradnnpy---simple-nn-library)
-    - [Training (demo)](#training-demo)
-    - [`autograd.nn.Neuron`](#autogradnnneuron)
-    - [`autograd.nn.Layer`](#autogradnnlayer)
-    - [`autograd.nn.Net`](#autogradnnnet)
+    - [tiny\_train (demo)](#tiny_train-demo)
+    - [sin\_train (demo)](#sin_train-demo)
+    - [`nn.Neuron`](#nnneuron)
+    - [`nn.Layer`](#nnlayer)
+    - [`nn.Net`](#nnnet)
   - [`autograd/engine.py` - scalar value autograd engine](#autogradenginepy---scalar-value-autograd-engine)
-    - [`autograd.engine.Value`](#autogradenginevalue)
+    - [`engine.Value`](#enginevalue)
     - [Minimize (demo)](#minimize-demo)
 
 ## `autograd/nn.py` - simple nn library
 
 The nn library is built on top of the autograd engine (see below). Read about the `Neuron`, `Layer`, and `Net` objects below. Here is a demo showing how a simple network can be trained. Note that this library is meant as an educational exercise. Everything is running on the CPU. Nothing is parallelized. So, we use a tiny example to show the capabilities of this tiny library.
 
-### Training (demo)
+### tiny_train (demo)
+Train a simple `nn.Net` to fit a tiny 4 example dataset.
 
 <details>
 <summary> Demo Code </summary>
@@ -63,10 +65,12 @@ print("y_pred:", [model(x).data for x in X])
 
 https://github.com/armeetjatyani/autograd/assets/38377327/f5941fef-cda9-436e-bdf0-2676bb34d705
 
+### sin_train (demo)
+
+In this demo, we train a neural network to fit the sine function.
 
 
-
-### `autograd.nn.Neuron`
+### `nn.Neuron`
 
 Every neuron stores parameters (weights and bias) as `Value` objects that keep track of gradients. To evaluate a neuron, inputs are multiplied by weights and added to the bias. Finally, the resulting signal is activated by a sigmoid function. This entire expression is internally represented by a DAG, to enable backwards gradient calculation (by `autograd.engine`).
 
@@ -89,7 +93,7 @@ print(n([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 
 We initialize this neuron to take in 10 inputs. This neuron has 11 total parameters (10 weights + 1 bias).
 
-### `autograd.nn.Layer`
+### `nn.Layer`
 
 A Layer is an abstraction built on top of the Neuron class. Layers contain identically shaped neurons. That is, each neuron in the layer takes in the same number of inputs. The number of neurons in the layer is the number of the outputs of this layer.
 
@@ -124,7 +128,7 @@ print(l([1, 2, 3]))
 
 In this example we build a layer with 10 neurons. Each neuron has 4 trainable parameters (3 weights + 1 bias). This yields a total of 40 trainable parameters.
 
-### `autograd.nn.Net`
+### `nn.Net`
 
 Net is a multilayer perceptron built by chaining together multiple Layer objects. Layers are fully connected.
 
@@ -150,7 +154,7 @@ In this example, we create a net that has 3 fully connected layers. The net ulti
 
 ## `autograd/engine.py` - scalar value autograd engine
 
-### `autograd.engine.Value`
+### `engine.Value`
 
 We can construct expressions using the `Value` class. Internally, the library maintains a graph representation of variables and their dependencies. We can calculate all gradients of parameters of an expression by calling `.backward()` on the result of an expression. This can be thought of as a simplified version of PyTorch's `Tensor`, holding scalar floats rather than tensors.
 
