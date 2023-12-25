@@ -2,6 +2,14 @@
 
 Autograd engine and neural network library with PyTorch-like API. Recreation of [micrograd](https://github.com/karpathy/micrograd).
 
+- [armeetjatyani/autograd](#armeetjatyaniautograd)
+  - [nn library](#nn-library)
+    - [Neuron](#neuron)
+    - [Layer](#layer)
+    - [Net](#net)
+  - [autograd engine](#autograd-engine)
+
+
 ## nn library
 
 `autograd/nn.py`
