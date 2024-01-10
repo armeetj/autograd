@@ -13,7 +13,10 @@ y = Value(random.randint(0, 200))
 for i in range(epochs + 1):
     # forward
     q = x + y
-    profit = (q * (200 - q)) - (100 * x) - (y ** 2)
+    revenue = q * (200 - q)
+    cost_1 = 100 * x
+    cost_2 = y ** 2
+    profit = revenue - cost_1 - cost_2
     profit = -profit # we want to maximize profit so negate the entire expression
 
     # backward
